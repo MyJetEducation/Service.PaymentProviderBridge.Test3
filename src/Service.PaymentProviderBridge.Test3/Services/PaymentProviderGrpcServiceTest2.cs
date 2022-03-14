@@ -25,22 +25,23 @@ namespace Service.PaymentProviderBridge.Test3.Services
 			string externalUrl = SetTransactionId(settings.ServiceUrl, request.TransactionId);
 
 			DepositRegisterResponse response = null;
+			var state = TransactionState.Error;
 			int counter = -1;
 
-			while (GetState(response?.State) != TransactionState.Approved)
+			while (counter < settings.TryCount)
 			{
 				counter++;
-				response = GetResponse(externalUrl);
 
-				if (counter >= settings.TryCount)
+				response = GetResponse(externalUrl);
+				state = GetState(response?.State);
+
+				_logger.LogDebug("Accepted response {@registerResponse} by url {url} for request {@request} (on {tr} try)!", response, externalUrl, request, counter);
+
+				if (state == TransactionState.Approved)
 					break;
 
 				Task.Delay(2000);
 			}
-
-			_logger.LogDebug("Accepted response {@registerResponse} by url {url} for request {@request} (on {tr} try)!", response, externalUrl, request, counter);
-
-			TransactionState state = GetState(response?.State);
 
 			return ValueTask.FromResult(new ProviderDepositGrpcResponse
 			{
