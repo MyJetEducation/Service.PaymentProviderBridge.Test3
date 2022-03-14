@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.4" />
+    <PackageReference PrivateAssets="All" Include="System.ServiceModel.Primitives" Version="4.9.0" />
+    <PackageReference PrivateAssets="All" Include="MyJetEducation.Service.Core.Client" Version="1.0.32" />
+    <PackageReference PrivateAssets="All" Include="MyJetWallet.Sdk.Grpc" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Service.PaymentProviderBridge.Test3.Domain.Models\Service.PaymentProviderBridge.Test3.Domain.Models.csproj" />
+  </ItemGroup>
+
+</Project>
