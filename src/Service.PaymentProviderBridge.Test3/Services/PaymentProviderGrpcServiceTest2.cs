@@ -26,7 +26,7 @@ namespace Service.PaymentProviderBridge.Test3.Services
 
 			DepositRegisterResponse response = null;
 			int counter = -1;
-			while (response == null)
+			while (GetState(response?.State) != TransactionState.Approved)
 			{
 				counter++;
 				response = GetResponse(externalUrl);
