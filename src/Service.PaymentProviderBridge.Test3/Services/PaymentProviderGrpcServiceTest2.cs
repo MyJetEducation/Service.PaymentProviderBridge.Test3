@@ -19,7 +19,7 @@ namespace Service.PaymentProviderBridge.Test3.Services
 
 		public PaymentProviderGrpcService(ILogger<PaymentProviderGrpcService> logger) => _logger = logger;
 
-		public ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
+		public async ValueTask<ProviderDepositGrpcResponse> DepositAsync(ProviderDepositGrpcRequest request)
 		{
 			SettingsModel settings = Program.Settings;
 			string externalUrl = SetTransactionId(settings.ServiceUrl, request.TransactionId);
@@ -40,15 +40,15 @@ namespace Service.PaymentProviderBridge.Test3.Services
 				if (state == TransactionState.Approved)
 					break;
 
-				Task.Delay(2000);
+				await Task.Delay(2000);
 			}
 
-			return ValueTask.FromResult(new ProviderDepositGrpcResponse
+			return new ProviderDepositGrpcResponse
 			{
 				State = state,
 				ExternalId = response?.ExternalId,
 				RedirectUrl = state == TransactionState.Approved ? settings.OkUrl : settings.FailUrl
-			});
+			};
 		}
 
 		private static DepositRegisterResponse GetResponse(string externalUrl)
