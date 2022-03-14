@@ -26,47 +26,37 @@ namespace Service.PaymentProviderBridge.Test3.Services
 
 			DepositRegisterResponse response = null;
 			int counter = -1;
+
 			while (GetState(response?.State) != TransactionState.Approved)
 			{
 				counter++;
 				response = GetResponse(externalUrl);
 
-				if (counter > settings.TryCount)
+				if (counter >= settings.TryCount)
 					break;
 
 				Task.Delay(2000);
 			}
 
-			if (response != null)
-			{
-				_logger.LogDebug("Accepted response {@registerResponse} by url {url} for request {@request} (on {tr} try)!", response, externalUrl, request, counter);
+			_logger.LogDebug("Accepted response {@registerResponse} by url {url} for request {@request} (on {tr} try)!", response, externalUrl, request, counter);
 
-				TransactionState state = GetState(response.State);
-
-				return ValueTask.FromResult(new ProviderDepositGrpcResponse
-				{
-					State = state,
-					ExternalId = response.ExternalId,
-					RedirectUrl = state == TransactionState.Approved ? settings.OkUrl : settings.FailUrl
-				});
-			}
+			TransactionState state = GetState(response?.State);
 
 			return ValueTask.FromResult(new ProviderDepositGrpcResponse
 			{
-				State = TransactionState.Rejected,
-				RedirectUrl = settings.FailUrl
+				State = state,
+				ExternalId = response?.ExternalId,
+				RedirectUrl = state == TransactionState.Approved ? settings.OkUrl : settings.FailUrl
 			});
 		}
 
-		private DepositRegisterResponse GetResponse(string externalUrl)
+		private static DepositRegisterResponse GetResponse(string externalUrl)
 		{
 			DepositRegisterResponse registerResponse;
+
 			using (HttpResponseMessage response = Client.GetAsync(externalUrl).Result)
 				using (HttpContent content = response.Content)
 					registerResponse = JsonConvert.DeserializeObject<DepositRegisterResponse>(content.ReadAsStringAsync().Result);
-
-			if (registerResponse == null)
-				_logger.LogError("External id not recieved for url {url} with request {@request}!", externalUrl);
 
 			return registerResponse;
 		}
