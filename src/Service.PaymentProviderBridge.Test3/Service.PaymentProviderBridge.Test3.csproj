@@ -9,7 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.4" />
+    <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.5" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.9.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.43.0" />
@@ -28,9 +28,9 @@
     <PackageReference Include="MyJetWallet.Sdk.Service" Version="2.1.7" />
     <PackageReference Include="MyJetWallet.Sdk.ServiceBus" Version="2.2.2" />
     <PackageReference Include="MyJetEducation.Service.Core.Client" Version="1.0.32" />
-    <PackageReference Include="MyJetEducation.Service.ServiceBus" Version="1.0.16" />
+    <PackageReference Include="MyJetEducation.Service.ServiceBus" Version="1.0.17" />
     <PackageReference Include="MyJetEducation.Service.Grpc" Version="1.0.7" />
-    <PackageReference Include="MyJetEducation.Service.PaymentDepositRepository.Client" Version="1.0.0" />
+    <PackageReference Include="MyJetEducation.Service.PaymentDepositRepository.Client" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
