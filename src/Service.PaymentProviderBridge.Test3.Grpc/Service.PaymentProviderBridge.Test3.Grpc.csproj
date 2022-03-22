@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="MyJetEducation.Service.PaymentDeposit.Client" Version="1.0.6" />
     <PackageReference PrivateAssets="All" Include="System.ServiceModel.Primitives" Version="4.9.0" />
-    <PackageReference PrivateAssets="All" Include="MyJetEducation.Service.Core.Client" Version="1.0.32" />
+    <PackageReference PrivateAssets="All" Include="MyJetEducation.Service.Core.Client" Version="1.0.33" />
     <PackageReference PrivateAssets="All" Include="MyJetWallet.Sdk.Grpc" Version="2.0.0" />
   </ItemGroup>
 
